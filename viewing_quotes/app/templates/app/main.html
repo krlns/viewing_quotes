@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <table hx-get="{% url 'main' %}" hx-trigger="delay:3s">
+        <tr>
+            <th></th>
+            <th>last_d</th>
+            <th>open</th>
+            <th>min</th>
+            <th>max</th>
+        </tr>
+
+        {% for el in data %}
+            <tr>
+                <td>{{ el.name }}</td>
+                <td>{{ el.last_deal }}</td>
+                <td>{{ el.opening_prices }}</td>
+                <td>{{ el.max }}</td>
+                <td>{{ el.min }}</td>
+            </tr>
+        {% endfor %}
+
+    </table>
+
+{% endblock %}
