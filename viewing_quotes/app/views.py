@@ -1,10 +1,10 @@
 from django.shortcuts import render
-from .models import CompanyList
+from .models import CoinList
 
 
 def main(request):
     if request.method == "GET":
         context = {
-            "data": CompanyList.objects.values()
+            "data": CoinList.objects.values()
         }
         return render(request, 'app/main.html', context=context)
