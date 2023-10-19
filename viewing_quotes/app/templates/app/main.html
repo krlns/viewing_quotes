@@ -2,22 +2,24 @@
 
 {% block content %}
 
-    <table hx-get="{% url 'main' %}" hx-trigger="delay:3s">
+    <table hx-get="{% url 'main' %}" hx-trigger="delay:60s">
         <tr>
             <th></th>
-            <th>last_d</th>
-            <th>open</th>
-            <th>min</th>
-            <th>max</th>
+            <th>Наименование</th>
+            <th>Цена</th>
+            <th>Комиссия</th>
+            <th>Статус</th>
+            <th>Тип</th>
         </tr>
 
         {% for el in data %}
             <tr>
+                <td><img src="{{ el.img }}" alt=""></td>
                 <td>{{ el.name }}</td>
-                <td>{{ el.last_deal }}</td>
-                <td>{{ el.opening_prices }}</td>
-                <td>{{ el.max }}</td>
-                <td>{{ el.min }}</td>
+                <td>{{ el.price }}</td>
+                <td>{{ el.tx_fee }}</td>
+                <td>{{ el.status }}</td>
+                <td>{{ el.coin_type }}</td>
             </tr>
         {% endfor %}
 

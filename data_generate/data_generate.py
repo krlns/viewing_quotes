@@ -1,6 +1,7 @@
 import requests
 import json
 from typing import List
+from app.tasks import update_data
 
 
 URL_INFO = "https://api.bittrex.com/v3/currencies"
@@ -22,7 +23,7 @@ def data_generate() -> List[dict]:
     for i in data:
         if i['symbol'] in COIN_NAMES:
             coin_data = {
-                "names": i['symbol'],
+                "name": i['symbol'],
                 "status": i['status'],
                 "coin_type": i["coinType"],
                 "tx_fee": i["txFee"],
@@ -33,10 +34,12 @@ def data_generate() -> List[dict]:
     return coin_info
 
 
-def get_coin_price(name_coin, currency) -> int:
+def get_coin_price(name_coin, currency) -> float:
     response = requests.get(URL_COIN_PRICE.replace('name_coin', name_coin).replace('currency', currency))
     data = json.loads(response.text)
     return data['lastTradeRate']
 
 
-print(data_generate())
+update_data.delay(data_generate())
+
+
