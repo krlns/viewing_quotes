@@ -7,8 +7,6 @@ import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'viewing_quotes.settings')
 django.setup()
 
-from app.tasks import update_data
-
 URL_INFO = "https://api.bittrex.com/v3/currencies"
 URL_COIN_PRICE = "https://api.bittrex.com/v3/markets/name_coin-currency/ticker"
 COIN_NAMES = {"BTC": "USDT",
@@ -44,7 +42,4 @@ def get_coin_price(name_coin, currency) -> float:
     if response.status_code == 200:
         return float(data['askRate'])
     return 0.0001
-
-
-update_data.delay(data_generate())
 
