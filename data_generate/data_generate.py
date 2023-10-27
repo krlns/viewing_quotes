@@ -14,7 +14,6 @@ URL_COIN_PRICE = "https://api.bittrex.com/v3/markets/name_coin-currency/ticker"
 COIN_NAMES = {"BTC": "USDT",
               "ETH": "USDT",
               "DOGE": "USDT",
-              "TON": "USD",
               "LTC": "USDT",
               "UNI": "USD",
               "USDT": "USD",
@@ -42,7 +41,10 @@ def data_generate() -> List[dict]:
 def get_coin_price(name_coin, currency) -> float:
     response = requests.get(URL_COIN_PRICE.replace('name_coin', name_coin).replace('currency', currency))
     data = json.loads(response.text)
-    return float(data['askRate'])
+    if response.status_code == 200:
+        return float(data['askRate'])
+    return 0.0001
 
 
 update_data.delay(data_generate())
+
